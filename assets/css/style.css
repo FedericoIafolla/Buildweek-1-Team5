@@ -111,11 +111,11 @@ body {
     line-height: 1.4em;
 }
 
-#footer {
+#submit_container {
     width: 100%;
 }
 
-#footer div {
+#submit_container div {
     display: inline-block;
 }
 
@@ -132,14 +132,22 @@ body {
     height: 20px;
 }
 
- /* #myCheckbox {
+  #myCheckbox {
     width: 20px;
     height: 20px;
     background-color: transparent;
     border: 2px solid white;
     margin: 0.7em;
     appearance: none;
-}  */
+    cursor: pointer;
+}  
+
+#myCheckbox:checked::before {
+    content: "\2713";
+    font-size: 18px;
+    color: white;
+    text-align: center;
+}
 
 #submit {
     width: 39%;
