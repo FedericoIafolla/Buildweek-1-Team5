@@ -1,5 +1,5 @@
 const check = document.getElementById("myCheckbox");
-const btnProceed = document.getElementById("btnProceed");
+const btnProceed = document.getElementById("next-btn");
 const link =document.getElementById("link")
 
 window.addEventListener('load', init);

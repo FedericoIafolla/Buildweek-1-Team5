@@ -1,0 +1,72 @@
+.quiz-container {
+    text-align: center;
+    margin: 0 auto;
+    width: 80%;
+}
+
+#question-container {
+    margin: 0 auto;
+    width: 90%;
+}
+
+#question h1 {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+#answer-buttons {
+    margin: 2em 0 2em 0;
+}
+
+.btn {
+    width: 48%;
+    margin: 0.4em 1% 0.4em 1%;
+    padding: 10px;
+    display: inline-block;
+    color: white;
+    background: rgba(255, 255, 255, 0.158);
+    border-radius: 25px;
+    font-size: 1.3em;
+    cursor: pointer;
+    box-shadow: inset 0px -10px 20px -10px rgba(0, 0, 0, 0.801), inset 0px 10px 10px rgba(255, 255, 255, 0.5);
+    border: 2px solid rgba(255, 255, 255, 0.322);
+}
+
+.selected.btn:hover {
+    background: #C2128D;
+}
+
+.selected {
+    background: #C2128D;
+}
+
+.upperBench {
+    display: inline-block;
+    overflow: hidden;
+}
+
+#banner {
+    float: left;
+    margin-right: 60vw;
+}
+
+#timer {
+    margin: 2em;
+    float: right;
+    padding: 5px 10px;
+    color: white;
+    text-align: center;
+}
+
+#questionCounter {
+    margin-top: 15vh;
+}
+
+.quiz-container p {
+    font-size: 1.5em;
+}
+
+.quiz-container p span {
+    color: #C2128D;
+}
+
