@@ -124,3 +124,64 @@ body {
 #questionCounter span {
     color: #C2128D;
 }
+
+#title1 {
+    text-align: center;
+    margin-bottom: 30px;
+
+}
+
+#title1 h1 {
+    font-size: 400%;
+    font-weight: 800;
+    line-height: 1.4em;
+}
+
+#title1 p {
+    font-size: 150%;
+    font-weight: 300;
+}
+
+#instructions1 {
+    text-align: center;
+
+}
+
+#stelline {
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+.material-symbols-outlined {
+    font-size: 50px !important;
+    font-variation-settings:
+        'FILL' 1,
+        'wght' 700,
+        'GRAD' 0,
+        'opsz' 24
+}
+
+#instructions1 p {
+    font-size: 150%;
+    font-weight: 300;
+    margin-bottom: 30px;
+}
+
+#feedback {
+    margin-bottom: 60px;
+}
+
+#feedback input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #C2128D;
+    width: 60%;
+}
+
+#myText:focus {
+    outline: none;
+}
+
+.star {
+    cursor: pointer;
+}

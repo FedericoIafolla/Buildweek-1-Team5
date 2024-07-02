@@ -1,3 +1,22 @@
+.progress-bar {
+    width: 200px;
+    height: 200px;
+    border: 10px solid #ccc;
+    border-radius: 50%;
+    position: relative;
+}
+
+.progress-bar-fill {
+    border-radius: 50%;
+    background-color: #4CAF50;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    transform: rotate(-90deg);
+}
+
 .quiz-container {
     text-align: center;
     margin: 0 auto;

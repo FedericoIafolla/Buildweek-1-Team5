@@ -60,13 +60,13 @@ const nextButton = document.getElementById('next-btn');
 const timerElement = document.getElementById('timer');
 const resultElement = document.getElementById('result');
 const questionParagraph = document.getElementById('questionCounter');
-
 let currentQuestionIndex = 0;
 let timeLeft = 10;
 let timer;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
+
 
 
 // inizializza il quiz, imposta gli indici a zero e aggiunge un event listener al pulsante per passare alla domanda successiva, avvia la sequenza della prima domanda chiamando setnexquestion
@@ -78,26 +78,27 @@ function startQuiz() {
     resultElement.innerHTML = '';
     nextButton.addEventListener('click', () => {
         clearInterval(timer); // Ferma il timer corrente
-        currentQuestionIndex++;
-        if (currentQuestionIndex < questions.length) {
-            setNextQuestion();
-        } else {
-            showResults();
-        }
-
-    });
-    // funzione per attivare il count delle domande
-    nextButton.addEventListener('click', function () {
-        if (currentQuestion < 10) {
-            currentQuestion++;
-            questionParagraph.innerHTML = `QUESTION ${currentQuestion}<span>/10</span>`;
-        }
-    });
-
-    // prepara e visualizza la prossima domanda
-
-    setNextQuestion();
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        setNextQuestion();
+    } else {
+        showResults();
+    }
+     
 }
+)};
+// funzione per attivare il count dele domande
+nextButton.addEventListener('click', function () {
+    if (currentQuestion < 10) {
+        currentQuestion++;
+        questionParagraph.innerHTML = `QUESTION ${currentQuestion}<span>/10</span>`;
+    }
+});
+
+// prepara e visualizza la prossima domanda
+
+setNextQuestion();
+
 
 function setNextQuestion() {
     resetState();
@@ -140,7 +141,10 @@ function selectAnswer(event) {
 
     const selectedButton = event.target;
     selectedButton.classList.add('selected');
+    // selectedAnswerIndex = selectedButton.innerText;   MALE NON TOCCARE
+
     const selectedAnswerIndex = Array.from(answerButtonsElement.children).indexOf(selectedButton);
+
     const correctAnswerIndex = questions[currentQuestionIndex].answers.findIndex(answer => answer === questions[currentQuestionIndex].correct);
 
     if (selectedAnswerIndex === correctAnswerIndex) {
