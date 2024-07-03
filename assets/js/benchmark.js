@@ -53,6 +53,7 @@ const questions = [
     }
 ];
 
+let questionLenght = questions.length;
 const questionContainer = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
@@ -181,7 +182,7 @@ function startTimer() {
 // mostra i risultati del quiz, salva i risultati nel localStorage e reindirizza l'utente alla pagina dei risultati
 
 function showResults() {
-    localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers }));
+    localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers,total: questionLenght}));
     window.location.href = 'results.html';
 }
 
