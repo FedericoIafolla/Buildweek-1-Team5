@@ -26,6 +26,7 @@
 
 .results {
     padding: 1em;
+    margin: 5vw;
 }
 
 .results h2 {
@@ -35,7 +36,7 @@
 
 .results h4 {
     font-size: 3em;
-    font-weight: 8800;
+    font-weight: 900;
 }
 
 #correct-container {
@@ -52,6 +53,8 @@
 
 #myChart {
     position: relative;
+    height: 400px;
+    width: 400px;
 }
 
 /* #chartContainer {
