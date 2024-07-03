@@ -1,13 +1,25 @@
 const text = document.getElementById("myText");
 const stelle = document.querySelectorAll("span");
 let indicecliccato = 0;
+let click = false;
 window.addEventListener('load', init);
 
 function init() {
     stelle.forEach((element, i) => {
         element.addEventListener("click", function () {
-            colorstar(i);
-            indicecliccato=i;
+            if (i===0 &&  click===false){
+                click=true;
+                colorstar(i); 
+                indicecliccato=i;
+            }
+            else if (i===0 && click) {
+                stelle[0].style.color = "white";
+                indicecliccato=0;
+                click=false;
+            }
+            else {colorstar(i); 
+                indicecliccato=i;}
+
         })
         element.addEventListener("mouseover", function () {
             deselect();
@@ -18,7 +30,7 @@ function init() {
         })
         element.addEventListener("mouseout", function () { 
             deselect();
-            if (indicecliccato>0) {
+            if (indicecliccato>0 || click) {
                 colorstar(indicecliccato);
             }
         })
@@ -43,7 +55,7 @@ function deselect() {
 
 text.addEventListener("keydown", function (event) {
     if (event.key === "Enter") {
-        alert("Ciao");
+        alert("Abbiamo ricevuto il tuo feedback!");
         text.value = "";
     }
 })

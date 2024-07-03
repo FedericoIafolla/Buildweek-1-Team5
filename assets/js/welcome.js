@@ -1,13 +1,18 @@
 const check = document.getElementById("myCheckbox");
-const btnProceed = document.getElementById("btnProceed");
+const btnProceed = document.getElementById("next-btn");
+const link =document.getElementById("link")
 
-window.addEventListener("load", init())
+window.addEventListener('load', init);
 
 function init() {
-    check.checked=false;
-    console.log(check);
+    
 }
 
+link.addEventListener("click", function(){
+    check.checked= false;
+});
+
+//creiamo una funzione per abilitare il button quando il checkbox è checked
 check.addEventListener("click", function () {
     if (check.checked) {
         btnProceed.disabled = false;
@@ -16,15 +21,4 @@ check.addEventListener("click", function () {
         btnProceed.disabled = true; 
     }
 }
-)
-
-// btnProceed.addEventListener("click", function () { 
-    
-//     console.log(check);
-// });
-
-//creiamo una funzione per abilitare il button quando il checkbox è checked
-
-
-// checkbox.addEventListener('change', () => {
-//   button.disabled = !checkbox.checked;
+);

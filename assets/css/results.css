@@ -1,0 +1,8 @@
+.quiz-container {
+    text-align: center;
+}
+
+.quiz-container h2{
+    font-weight: 300;
+    color: rgb(221, 221, 221);
+}

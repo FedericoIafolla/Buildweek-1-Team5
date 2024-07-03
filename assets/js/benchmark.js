@@ -66,8 +66,15 @@ let timer;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
+let selectedAnswer = null;
 
-
+function shuffle(array) {
+    for (let i = array.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [array[i], array[j]] = [array[j], array[i]];
+    }
+    return array;
+}
 
 // inizializza il quiz, imposta gli indici a zero e aggiunge un event listener al pulsante per passare alla domanda successiva, avvia la sequenza della prima domanda chiamando setnexquestion
 
@@ -76,18 +83,27 @@ function startQuiz() {
     correctAnswers = 0;
     wrongAnswers = 0;
     resultElement.innerHTML = '';
+    shuffle(questions); // Mescola le domande prima di iniziare il quiz
     nextButton.addEventListener('click', () => {
         clearInterval(timer); // Ferma il timer corrente
-    currentQuestionIndex++;
-    if (currentQuestionIndex < questions.length) {
-        setNextQuestion();
-    } else {
-        showResults();
-    }
-     
+        if (selectedAnswer !== null) {
+            const correctAnswerIndex = questions[currentQuestionIndex].answers.findIndex(answer => answer === questions[currentQuestionIndex].correct);
+            if (selectedAnswer === correctAnswerIndex) {
+                correctAnswers++;
+            } else {
+                wrongAnswers++;
+            }
+            selectedAnswer = null; // reset the selected answer
+        }
+        currentQuestionIndex++;
+        if (currentQuestionIndex < questions.length) {
+            setNextQuestion();
+        } else {
+            showResults();
+        }
+    });
 }
-)};
-// funzione per attivare il count dele domande
+
 nextButton.addEventListener('click', function () {
     if (currentQuestion < 10) {
         currentQuestion++;
@@ -99,7 +115,6 @@ nextButton.addEventListener('click', function () {
 
 setNextQuestion();
 
-
 function setNextQuestion() {
     resetState();
     showQuestion(questions[currentQuestionIndex]);
@@ -110,15 +125,14 @@ function setNextQuestion() {
 
 function showQuestion(item) {
     questionElement.innerHTML = `<h1>${item.question}</h1>`;
-    item.answers.forEach(answer => {
+    item.answers.forEach((answer, index) => {
         const button = document.createElement('button');
         button.innerText = answer;
         button.classList.add('btn');
-        button.addEventListener('click', selectAnswer);
+        button.addEventListener('click', () => selectAnswer(index));
         answerButtonsElement.appendChild(button);
     });
 }
-
 
 // ripristina lo stato iniziale dell'interfaccia prima di mostrare una domanda
 
@@ -132,29 +146,15 @@ function resetState() {
     }
 }
 
-// gestiste la selezione di una risposta, determina se corretta o sbagliata e incrementa i conteggi delle risposte
+// gestisce la selezione di una risposta, ma non incrementa i conteggi delle risposte
 
-function selectAnswer(event) {
+function selectAnswer(index) {
     Array.from(answerButtonsElement.children).forEach(button => {
         button.classList.remove('selected');
-    })
-
-    const selectedButton = event.target;
-    selectedButton.classList.add('selected');
-    // selectedAnswerIndex = selectedButton.innerText;   MALE NON TOCCARE
-
-    const selectedAnswerIndex = Array.from(answerButtonsElement.children).indexOf(selectedButton);
-
-    const correctAnswerIndex = questions[currentQuestionIndex].answers.findIndex(answer => answer === questions[currentQuestionIndex].correct);
-
-    if (selectedAnswerIndex === correctAnswerIndex) {
-        correctAnswers++;
-    } else {
-        wrongAnswers++;
-    }
-
+    });
+    selectedAnswer = index;
+    answerButtonsElement.children[index].classList.add('selected');
     nextButton.disabled = false; // Abilita il pulsante "PROCEDI"
-    // Non chiamare clearInterval(timer) qui
 }
 
 // avvia il timer per la domanda corrente, se il tempo scade incrementa il conteggio delle risposte sbagliate e passa alla domanda successiva
@@ -176,18 +176,14 @@ function startTimer() {
             }
         }
     }, 1000);
-
-};
-
+}
 
 // mostra i risultati del quiz, salva i risultati nel localStorage e reindirizza l'utente alla pagina dei risultati
 
 function showResults() {
     localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers }));
-
     window.location.href = 'results.html';
 }
-
 
 // scatena l'inferno
 
