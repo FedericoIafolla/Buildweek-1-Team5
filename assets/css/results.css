@@ -11,7 +11,6 @@
 #quiz-container div:not(#title) {
     display: inline-block;
     vertical-align: middle;
-
 }
 
 #title h1 {
@@ -53,8 +52,8 @@
 
 #myChart {
     position: relative;
-    height: 400px;
-    width: 400px;
+    height: 23em;
+    width: 23em;
 }
 
 /* #chartContainer {
@@ -67,8 +66,10 @@
 #rate-us-btn {
     background-color: #00000000;
     color: white;
-    padding: 0.5em 1em;
+    padding: 0.5em 3em;
     border: 2px solid white;
     font-size: 1.5em;
     cursor: pointer;
 }
+
+ 
