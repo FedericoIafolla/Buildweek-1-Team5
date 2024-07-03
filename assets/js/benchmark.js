@@ -84,9 +84,12 @@ function startQuiz() {
     correctAnswers = 0;
     wrongAnswers = 0;
     resultElement.innerHTML = '';
+
     shuffle(questions); // Mescola le domande prima di iniziare il quiz
+
     nextButton.addEventListener('click', () => {
         clearInterval(timer); // Ferma il timer corrente
+
         if (selectedAnswer !== null) {
             const correctAnswerIndex = questions[currentQuestionIndex].answers.findIndex(answer => answer === questions[currentQuestionIndex].correct);
             if (selectedAnswer === correctAnswerIndex) {
@@ -103,6 +106,15 @@ function startQuiz() {
             showResults();
         }
     });
+    
+    setNextQuestion();
+
+}
+
+function setNextQuestion() {
+    resetState();
+    showQuestion(questions[currentQuestionIndex]);
+    startTimer();
 }
 
 nextButton.addEventListener('click', function () {
@@ -114,13 +126,17 @@ nextButton.addEventListener('click', function () {
 
 // prepara e visualizza la prossima domanda
 
-setNextQuestion();
 
-function setNextQuestion() {
-    resetState();
-    showQuestion(questions[currentQuestionIndex]);
-    startTimer();
+function resetState() {
+    clearInterval(timer);
+    nextButton.disabled = true;
+    timerElement.innerText = '10';
+    timeLeft = 10;
+    while (answerButtonsElement.firstChild) {
+        answerButtonsElement.removeChild(answerButtonsElement.firstChild);
+    }
 }
+
 
 // imposta il testo della domanda, crea un pulsante per ogni risposta e aggiunge event listener a ciascuno per gestire la risposta
 
@@ -137,15 +153,7 @@ function showQuestion(item) {
 
 // ripristina lo stato iniziale dell'interfaccia prima di mostrare una domanda
 
-function resetState() {
-    clearInterval(timer);
-    nextButton.disabled = true;
-    timerElement.innerText = '10';
-    timeLeft = 10;
-    while (answerButtonsElement.firstChild) {
-        answerButtonsElement.removeChild(answerButtonsElement.firstChild);
-    }
-}
+
 
 // gestisce la selezione di una risposta, ma non incrementa i conteggi delle risposte
 
@@ -182,9 +190,17 @@ function startTimer() {
 // mostra i risultati del quiz, salva i risultati nel localStorage e reindirizza l'utente alla pagina dei risultati
 
 function showResults() {
-    localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers,total: questionLenght}));
+    // const totalQuestions = questionLenght;
+    // const correctPercentage = (correctAnswers / totalQuestions) * 100;
+
+    localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers, total: questionLenght }));
     window.location.href = 'results.html';
+
+    //   if (correct >= 60) {
+    //     alert("Compliment! hai superato il quizzone maledetto!")
 }
+
+
 
 // scatena l'inferno
 

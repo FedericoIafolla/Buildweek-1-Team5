@@ -14,7 +14,7 @@
 
 }
 
-#title h1{
+#title h1 {
     font-weight: bold;
 }
 
@@ -50,6 +50,17 @@
     text-align: center;
 }
 
+#myChart {
+    position: relative;
+}
+
+/* #chartContainer {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} */
+
 #rate-us-btn {
     background-color: #00000000;
     color: white;
@@ -58,4 +69,3 @@
     font-size: 1.5em;
     cursor: pointer;
 }
-
