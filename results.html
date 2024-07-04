@@ -21,7 +21,6 @@
                     <h2>The summary of your answers:</h2>
                 </div>
                 <div id="inline">
-                  
         <div id="correct-container" class="results">
                         <h2>Correct</h2>
                         <h4 id="correct-answers-percentage">0%</h4>
@@ -29,10 +28,8 @@
                     </div>
                     <div id="grafico">
                         <canvas id="myChart" style="width: 100%;">
-                            <!-- <div id="chartContainer"><h2>ciao</h2></div> -->
                         </canvas>
                     </div>
-                 
                     <div id="wrong-container" class="results">
                         <h2>Wrong</h2>
                         <h4 id="wrong-answers-percentage">0%</h4>
@@ -45,9 +42,11 @@
             </div>
         </main>
     </div>
+        <!-- Tag script necessari all'aggiunta del grafico alla struttura -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js"></script>
     <script src="./assets/js/results.js"></script>
+        <!-- Script per aprire la pagina di feedback in un'altra scheda, scelta presa perchè il metodo classico sul bottone non funzionava -->
     <script>document.getElementById('rate-us-btn').addEventListener('click', function() {
         window.open('./feedback.html', '_blank');
     });

@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const ctx = document.getElementById("myChart").getContext("2d");
 
+    // Condizione per impostare due differenti testi che appagliono a seconda dell'esito del quiz.
     let text, colorSecondLine;
     if (correctAnswersPercentageNumber >= 60) {
       text =

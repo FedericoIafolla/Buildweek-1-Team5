@@ -107,14 +107,14 @@ document.addEventListener('mouseleave', function() {
 });
 
 // Funzione per concludere il quiz a causa dell'uscita del cursore
-function endQuizOnLeave() {
+ function endQuizOnLeave() {
     clearInterval(timerInterval); // Interrompi il timer
     quizExited = true; // Imposta il flag che il quiz è stato terminato per uscita del cursore
 
-    // Conta le risposte date sbagliate e le domande non risposte come sbagliate
+// Conta le risposte date sbagliate e le domande non risposte come sbagliate
     wrongAnswers = questionLength - correctAnswers;
 
-    showResults(); // Mostra i risultati
+    showResults(); // Mostra i risultati 
 }
 
 // Funzione per avviare il quiz

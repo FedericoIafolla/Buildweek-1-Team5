@@ -1,11 +1,11 @@
 const text = document.getElementById("myText");
-const stelle = document.querySelectorAll("span");
+const stars = document.querySelectorAll("span");
 let indicecliccato = 0;
 let click = false;
 window.addEventListener('load', init);
 
 function init() {
-    stelle.forEach((element, i) => {
+    stars.forEach((element, i) => {
         element.addEventListener("click", function () {
             if (i===0 &&  click===false){
                 click=true;
@@ -13,7 +13,7 @@ function init() {
                 indicecliccato=i;
             }
             else if (i===0 && click) {
-                stelle[0].style.color = "white";
+                stars[0].style.color = "white";
                 indicecliccato=0;
                 click=false;
             }
@@ -45,14 +45,14 @@ function init() {
 // Utilizziamo questa funzione per colorare le stelle attraverso un ciclo
 function colorstar(i) {
     for (let y = 0; y <= i; y++) {
-        stelle[y].style.color = "#00FFFF";
+        stars[y].style.color = "#00FFFF";
     }
 }
 
 
 
 function deselect() {
-    stelle.forEach((element, i) => {
+    stars.forEach((element, i) => {
         element.style.color = "white";
     })
 
