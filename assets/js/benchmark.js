@@ -19,8 +19,10 @@ let timePassed = 0;
 let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
+let quizEnded = false; // Flag per gestire lo stato del quiz
+let quizExited = false; // Flag per gestire se il quiz è stato terminato a causa dell'uscita del cursore
 
-//Array di domande e risposte 
+// Array di domande e risposte 
 const questions = [
     {
         question: "What does CPU stand for?",
@@ -28,7 +30,7 @@ const questions = [
         correct: "Central Processing Unit"
     },
     {
-        question: "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn&#039;t get modified?",
+        question: "In the programming language Java, which of these keywords would you put on a variable to make sure it doesn't get modified?",
         answers: ["Static", "Private", "Final", "Public"],
         correct: "Final"
     },
@@ -78,7 +80,7 @@ let questionLength = questions.length;
 const questionContainer = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
-const nextButton = document.getElementById('next-btn');
+const nextButton = document.getElementById('btnProceed');
 const timerElement = document.getElementById('base-timer-label');
 const resultElement = document.getElementById('result');
 const questionParagraph = document.getElementById('questionCounter');
@@ -87,7 +89,8 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
 let selectedAnswer = null;
-// Questa funzione prende l'array e ne rimescola casualmente gli elementi.
+
+// Funzione per mescolare le domande in modo casuale
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -96,6 +99,25 @@ function shuffle(array) {
     return array;
 }
 
+// Listener per controllare se il cursore esce dalla pagina
+document.addEventListener('mouseleave', function() {
+    if (!quizEnded && !quizExited) { // Controlla se il quiz non è terminato e se non è già stato terminato per uscita del cursore
+        endQuizOnLeave(); // Chiama la funzione per terminare il quiz a causa dell'uscita del cursore
+    }
+});
+
+// Funzione per concludere il quiz a causa dell'uscita del cursore
+function endQuizOnLeave() {
+    clearInterval(timerInterval); // Interrompi il timer
+    quizExited = true; // Imposta il flag che il quiz è stato terminato per uscita del cursore
+
+    // Conta le risposte date sbagliate e le domande non risposte come sbagliate
+    wrongAnswers = questionLength - correctAnswers;
+
+    showResults(); // Mostra i risultati
+}
+
+// Funzione per avviare il quiz
 function startQuiz() {
     currentQuestionIndex = 0;
     correctAnswers = 0;
@@ -126,14 +148,15 @@ function startQuiz() {
     
     setNextQuestion();
 }
-// Questa funzione mostra la prossima domanda del quiz, resettando lo stato
-//del quiz e avviando il timer
+
+// Funzione per impostare la prossima domanda del quiz
 function setNextQuestion() {
     resetState();
     showQuestion(questions[currentQuestionIndex]);
     startTimer();
 }
 
+// Listener per il pulsante "Next" che aggiorna il numero della domanda corrente
 nextButton.addEventListener('click', function () {
     if (currentQuestion < 10) {
         currentQuestion++;
@@ -141,6 +164,7 @@ nextButton.addEventListener('click', function () {
     }
 });
 
+// Funzione per ripristinare lo stato del quiz
 function resetState() {
     clearInterval(timerInterval);
     nextButton.disabled = true;
@@ -154,6 +178,7 @@ function resetState() {
     }
 }
 
+// Funzione per mostrare una domanda
 function showQuestion(item) {
     questionElement.innerHTML = `<h1>${item.question}</h1>`;
     item.answers.forEach((answer, index) => {
@@ -165,6 +190,7 @@ function showQuestion(item) {
     });
 }
 
+// Funzione per selezionare una risposta
 function selectAnswer(index) {
     Array.from(answerButtonsElement.children).forEach(button => {
         button.classList.remove('selected');
@@ -174,6 +200,7 @@ function selectAnswer(index) {
     nextButton.disabled = false;
 }
 
+// Funzione chiamata quando scade il tempo per una domanda
 function onTimesUp() {
     clearInterval(timerInterval);
     wrongAnswers++;
@@ -186,8 +213,8 @@ function onTimesUp() {
         showResults();
     }
 }
-// Questa funzione avvia il timer per una domanda, aggiornando il tempo rimanente
-// e il cerchio di progressione del timer
+
+// Funzione per avviare il timer
 function startTimer() {
     timerInterval = setInterval(() => {
         timePassed = timePassed += 1;
@@ -202,6 +229,7 @@ function startTimer() {
     }, 1000);
 }
 
+// Funzione per formattare il tempo rimanente
 function formatTime(time) {
     const minutes = Math.floor(time / 60);
     let seconds = time % 60;
@@ -213,6 +241,7 @@ function formatTime(time) {
     return `${minutes}:${seconds}`;
 }
 
+// Funzione per impostare il colore del percorso rimanente
 function setRemainingPathColor(timeLeft) {
     const { alert, warning, info } = COLOR_CODES;
     if (timeLeft <= alert.threshold) {
@@ -232,11 +261,13 @@ function setRemainingPathColor(timeLeft) {
     }
 }
 
+// Funzione per calcolare la frazione di tempo rimanente
 function calculateTimeFraction() {
     const rawTimeFraction = timeLeft / TIME_LIMIT;
     return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
 }
 
+// Funzione per impostare l'array di dash per il cerchio
 function setCircleDasharray() {
     const circleDasharray = `${(
         calculateTimeFraction() * FULL_DASH_ARRAY
@@ -245,9 +276,10 @@ function setCircleDasharray() {
         .getElementById("base-timer-path-remaining")
         .setAttribute("stroke-dasharray", circleDasharray);
 }
-// Abbiamo utilizzato questa funzione per salvare i riusltati del quiz nel localStorage
-// e reindirizza l'utente alla pagina dei risultati
+
+// Funzione per mostrare i risultati del quiz
 function showResults() {
+    quizEnded = true; // Imposta il flag che il quiz è terminato
     localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers, total: questionLength }));
     window.location.href = 'results.html';
 }

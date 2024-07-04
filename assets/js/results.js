@@ -17,13 +17,13 @@ const doughnutLabel = {
     const { ctx, data } = chart;
     ctx.save();
     const centerX = chart.width / 2;
-    const centerY = chart.height / 2 - 50;
+    const centerY = chart.height / 2 - 65;
 
     const lines = pluginOptions.text.split("\n");
     const fontSize = pluginOptions.fontSize || 12;
     const lineHeight = pluginOptions.lineHeight || 1.5;
     const boldFont = `${fontSize * 1.6}px sans-serif`;
-    const regularFont = `${fontSize * 1}px sans-serif`;
+    const regularFont = `${fontSize * 1.1}px sans-serif`;
 
     ctx.shadowColor = pluginOptions.shadow;
     ctx.shadowBlur = 10;
@@ -37,6 +37,7 @@ const doughnutLabel = {
         ctx.font = boldFont;
         if (index === 1) {
           ctx.fillStyle = pluginOptions.colorSecondLine;
+
         } else {
           ctx.fillStyle = pluginOptions.color;
         }
@@ -92,7 +93,7 @@ document.addEventListener("DOMContentLoaded", function () {
     let text, colorSecondLine;
     if (correctAnswersPercentageNumber >= 60) {
       text =
-        "Congratulations!\nYou passed the exam.\n\nWe'll send you the certificate \nin few minutes. Check your email \n(including promotions/spam folder)";
+        "Congratulations!\nYou passed the exam.\n\nWe'll send you the certificate \nin few minutes. \nCheck your email \n(including promotions/spam folder)";
       colorSecondLine = "#01FBFC";
     } else {
       text =
@@ -127,7 +128,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           doughnutLabel: {
             fontFamily: "Outfit, sans-serif",
-            fontSize: 13,
+            fontSize: 15,
             lineHeight: 1.5,
             color: "white",
             colorSecondLine: colorSecondLine,

@@ -41,13 +41,17 @@
                 </div>
             </div>
             <div id="rate-us">
-                <a id="link" href="./feedback.html"><button type="button" id="rate-us-btn">RATE US</button></a>
+                <button type="button" id="rate-us-btn">RATE US</button></a>
             </div>
         </main>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js"></script>
     <script src="./assets/js/results.js"></script>
+    <script>document.getElementById('rate-us-btn').addEventListener('click', function() {
+        window.open('./feedback.html', '_blank');
+    });
+    </script>
 </body>
 
 </html>
