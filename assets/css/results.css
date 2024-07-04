@@ -56,15 +56,11 @@
     width: 23em;
 }
 
-/* #chartContainer {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} */
 
 #rate-us-btn {
-    background-color: #00000000;
+    background-color: transparent;
+    transition: box-shadow 0.3s ease;
+    box-shadow: 0 0 20px rgba(29, 49, 207, 0.8);
     color: white;
     padding: 0.5em 3em;
     border: 2px solid white;
@@ -72,4 +68,6 @@
     cursor: pointer;
 }
 
- 
+#rate-us-btn:hover {
+    box-shadow: 0 0 30px rgba(29, 49, 207, 1.2);
+}

@@ -18,11 +18,6 @@ const doughnutLabel = {
     ctx.save();
     const centerX = chart.width / 2;
     const centerY = chart.height / 2 - 50;
-    
-    ctx.shadowOffsetX = 10;
-    ctx.shadowOffsetY = 10;
-    ctx.shadowBlur = 10;
-    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
 
     const lines = pluginOptions.text.split("\n");
     const fontSize = pluginOptions.fontSize || 12;
@@ -51,6 +46,7 @@ const doughnutLabel = {
     ctx.restore();
   },
 };
+
 
 document.addEventListener("DOMContentLoaded", function () {
   const quizResults = JSON.parse(localStorage.getItem("quizResults"));
@@ -99,6 +95,7 @@ document.addEventListener("DOMContentLoaded", function () {
             backgroundColor: ["#C2128D", "#00FFFF"],
             borderColor: ["#C2128D", "#00FFFF"],
             borderWidth: 1,
+
           },
         ],
       },

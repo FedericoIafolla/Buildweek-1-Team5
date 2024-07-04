@@ -69,12 +69,23 @@
     margin-right: 60vw;
 }
 
+#chartContainer {
+    position: relative;
+    width: 200px; /* larghezza del canvas */
+    height: 200px; /* altezza del canvas */
+    float: right; /* per posizionarlo a destra */
+    margin: 2em; /* per avere spazio attorno */
+}
+
 #timer {
-    margin: 2em;
-    float: right;
-    padding: 5px 10px;
-    color: white;
-    text-align: center;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 24px;
+    color: #000; /* Testo del timer nero */
+    line-height: 1; /* Impedisce lo spostamento verso il basso */
+    margin-top: -0.3em; /* Sposta leggermente verso l'alto (regolabile) */
 }
 
 #questionCounter {
@@ -89,3 +100,52 @@
     color: #C2128D;
 }
 
+/* Add these styles for the new timer */
+.base-timer {
+    position: relative;
+    width: 200px;
+    height: 200px;
+}
+
+.base-timer__svg {
+    transform: scaleX(-1);
+}
+
+.base-timer__circle {
+    fill: none;
+    stroke: none;
+}
+
+.base-timer__path-elapsed {
+    stroke-width: 7px;
+    stroke: grey;
+}
+
+.base-timer__path-remaining {
+    stroke-width: 7px;
+    stroke-linecap: round;
+    transform: rotate(90deg);
+    transform-origin: center;
+    transition: 1s linear all;
+    fill-rule: nonzero;
+    stroke: currentColor;
+}
+
+.base-timer__path-remaining.full {
+    stroke: #00FFFF;
+}
+
+.base-timer__path-remaining.transparent {
+    stroke: transparent;
+}
+
+.base-timer__label {
+    position: absolute;
+    width: 200px;
+    height: 200px;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+}

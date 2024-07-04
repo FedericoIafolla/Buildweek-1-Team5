@@ -1,4 +1,24 @@
-// setta le variabili, gli indici, il timer, le risposte corrette e sbagliate, se si vuole aggiungere che la risposta giusta sia variabile.. Io mi tiro fuori, non ne voglio sapere nulla, sparisco, scappo in messico, addios 
+const FULL_DASH_ARRAY = 283;
+const WARNING_THRESHOLD = 10;
+const ALERT_THRESHOLD = 5;
+const COLOR_CODES = {
+    info: {
+        color: "#00FFFF"
+    },
+    warning: {
+        color: "orange",
+        threshold: WARNING_THRESHOLD
+    },
+    alert: {
+        color: "red",
+        threshold: ALERT_THRESHOLD
+    }
+};
+const TIME_LIMIT = 10;
+let timePassed = 0;
+let timeLeft = TIME_LIMIT;
+let timerInterval = null;
+let remainingPathColor = COLOR_CODES.info.color;
 
 const questions = [
     {
@@ -53,17 +73,15 @@ const questions = [
     }
 ];
 
-let questionLenght = questions.length;
+let questionLength = questions.length;
 const questionContainer = document.getElementById('question-container');
 const questionElement = document.getElementById('question');
 const answerButtonsElement = document.getElementById('answer-buttons');
 const nextButton = document.getElementById('next-btn');
-const timerElement = document.getElementById('timer');
+const timerElement = document.getElementById('base-timer-label');
 const resultElement = document.getElementById('result');
 const questionParagraph = document.getElementById('questionCounter');
 let currentQuestionIndex = 0;
-let timeLeft = 10;
-let timer;
 let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
@@ -77,18 +95,16 @@ function shuffle(array) {
     return array;
 }
 
-// inizializza il quiz, imposta gli indici a zero e aggiunge un event listener al pulsante per passare alla domanda successiva, avvia la sequenza della prima domanda chiamando setnexquestion
-
 function startQuiz() {
     currentQuestionIndex = 0;
     correctAnswers = 0;
     wrongAnswers = 0;
     resultElement.innerHTML = '';
 
-    shuffle(questions); // Mescola le domande prima di iniziare il quiz
+    shuffle(questions);
 
     nextButton.addEventListener('click', () => {
-        clearInterval(timer); // Ferma il timer corrente
+        clearInterval(timerInterval);
 
         if (selectedAnswer !== null) {
             const correctAnswerIndex = questions[currentQuestionIndex].answers.findIndex(answer => answer === questions[currentQuestionIndex].correct);
@@ -97,7 +113,7 @@ function startQuiz() {
             } else {
                 wrongAnswers++;
             }
-            selectedAnswer = null; // reset the selected answer
+            selectedAnswer = null;
         }
         currentQuestionIndex++;
         if (currentQuestionIndex < questions.length) {
@@ -108,7 +124,6 @@ function startQuiz() {
     });
     
     setNextQuestion();
-
 }
 
 function setNextQuestion() {
@@ -124,21 +139,18 @@ nextButton.addEventListener('click', function () {
     }
 });
 
-// prepara e visualizza la prossima domanda
-
-
 function resetState() {
-    clearInterval(timer);
+    clearInterval(timerInterval);
     nextButton.disabled = true;
-    timerElement.innerText = '10';
-    timeLeft = 10;
+    timeLeft = TIME_LIMIT;
+    timePassed = 0;
+    timerElement.innerText = formatTime(timeLeft);
+    setCircleDasharray();
+    setRemainingPathColor(timeLeft);
     while (answerButtonsElement.firstChild) {
         answerButtonsElement.removeChild(answerButtonsElement.firstChild);
     }
 }
-
-
-// imposta il testo della domanda, crea un pulsante per ogni risposta e aggiunge event listener a ciascuno per gestire la risposta
 
 function showQuestion(item) {
     questionElement.innerHTML = `<h1>${item.question}</h1>`;
@@ -151,57 +163,89 @@ function showQuestion(item) {
     });
 }
 
-// ripristina lo stato iniziale dell'interfaccia prima di mostrare una domanda
-
-
-
-// gestisce la selezione di una risposta, ma non incrementa i conteggi delle risposte
-
 function selectAnswer(index) {
     Array.from(answerButtonsElement.children).forEach(button => {
         button.classList.remove('selected');
     });
     selectedAnswer = index;
     answerButtonsElement.children[index].classList.add('selected');
-    nextButton.disabled = false; // Abilita il pulsante "PROCEDI"
+    nextButton.disabled = false;
 }
 
-// avvia il timer per la domanda corrente, se il tempo scade incrementa il conteggio delle risposte sbagliate e passa alla domanda successiva
+function onTimesUp() {
+    clearInterval(timerInterval);
+    wrongAnswers++;
+    currentQuestion++;
+    questionParagraph.innerHTML = `QUESTION ${currentQuestion}<span>/10</span>`;
+    currentQuestionIndex++;
+    if (currentQuestionIndex < questions.length) {
+        setNextQuestion();
+    } else {
+        showResults();
+    }
+}
 
 function startTimer() {
-    timer = setInterval(() => {
-        timeLeft--;
-        timerElement.innerText = timeLeft;
+    timerInterval = setInterval(() => {
+        timePassed = timePassed += 1;
+        timeLeft = TIME_LIMIT - timePassed;
+        timerElement.innerHTML = formatTime(timeLeft);
+        setCircleDasharray();
+        setRemainingPathColor(timeLeft);
+
         if (timeLeft === 0) {
-            clearInterval(timer);
-            wrongAnswers++;
-            currentQuestion++;
-            questionParagraph.innerHTML = `QUESTION ${currentQuestion}<span>/10</span>`;
-            currentQuestionIndex++;
-            if (currentQuestionIndex < questions.length) {
-                setNextQuestion();
-            } else {
-                showResults();
-            }
+            onTimesUp();
         }
     }, 1000);
 }
 
-// mostra i risultati del quiz, salva i risultati nel localStorage e reindirizza l'utente alla pagina dei risultati
+function formatTime(time) {
+    const minutes = Math.floor(time / 60);
+    let seconds = time % 60;
 
-function showResults() {
-    // const totalQuestions = questionLenght;
-    // const correctPercentage = (correctAnswers / totalQuestions) * 100;
+    if (seconds < 10) {
+        seconds = `0${seconds}`;
+    }
 
-    localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers, total: questionLenght }));
-    window.location.href = 'results.html';
-
-    //   if (correct >= 60) {
-    //     alert("Compliment! hai superato il quizzone maledetto!")
+    return `${minutes}:${seconds}`;
 }
 
+function setRemainingPathColor(timeLeft) {
+    const { alert, warning, info } = COLOR_CODES;
+    if (timeLeft <= alert.threshold) {
+        document
+            .getElementById("base-timer-path-remaining")
+            .classList.remove(warning.color);
+        document
+            .getElementById("base-timer-path-remaining")
+            .classList.add(alert.color);
+    } else if (timeLeft <= warning.threshold) {
+        document
+            .getElementById("base-timer-path-remaining")
+            .classList.remove(info.color);
+        document
+            .getElementById("base-timer-path-remaining")
+            .classList.add(warning.color);
+    }
+}
 
+function calculateTimeFraction() {
+    const rawTimeFraction = timeLeft / TIME_LIMIT;
+    return rawTimeFraction - (1 / TIME_LIMIT) * (1 - rawTimeFraction);
+}
 
-// scatena l'inferno
+function setCircleDasharray() {
+    const circleDasharray = `${(
+        calculateTimeFraction() * FULL_DASH_ARRAY
+    ).toFixed(0)} 283`;
+    document
+        .getElementById("base-timer-path-remaining")
+        .setAttribute("stroke-dasharray", circleDasharray);
+}
+
+function showResults() {
+    localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers, total: questionLength }));
+    window.location.href = 'results.html';
+}
 
 startQuiz();
