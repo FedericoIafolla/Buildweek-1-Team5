@@ -1,26 +1,29 @@
 const check = document.getElementById("myCheckbox");
-const btnProceed = document.getElementById("next-btn");
-const link =document.getElementById("link")
-//Viene definita una funzione 'init' ceh viene chiamata quando la pagina
-//web viene caricata
+const btnProceed = document.getElementById("btnProceed");
+const link =document.getElementById("link");
+const vuoto = document.getElementById("vuoto");
+const pieno = document.getElementById("pieno");
 window.addEventListener('load', init);
 
 function init() {
     
-}
-//Viene aggiunto un event listener al link (link.addEventListener("click", function(){...})). 
-//Quando il link viene cliccato, il checkbox (check) viene impostato su false.
+};
+
 link.addEventListener("click", function(){
     check.checked= false;
 });
 
-//creiamo una funzione per abilitare il button quando il checkbox è checked
 check.addEventListener("click", function () {
     if (check.checked) {
         btnProceed.disabled = false;
+        pieno.style.display= "initial";
+        vuoto.style.display= "none";
     }
     else {
         btnProceed.disabled = true; 
+        pieno.style.display= "none";
+        vuoto.style.display= "initial";
     }
-}
+    }
+
 );

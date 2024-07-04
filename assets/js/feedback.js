@@ -21,6 +21,10 @@ function init() {
                 indicecliccato=i;}
 
         })
+        // Abbiamo utilizzato un Event Listener per il mouseover su una stella
+        // dove all'interno richiama la funzione per rimuovere la selezione da tutte le stella
+        // e quella per selezionare la stella su cui si è posato il mouse
+        //abbiamo lavorato in modo simile per il mouseout nel codice sottostante
         element.addEventListener("mouseover", function () {
             deselect();
             colorstar(i);
@@ -38,6 +42,7 @@ function init() {
     });
 
 };
+// Utilizziamo questa funzione per colorare le stelle attraverso un ciclo
 function colorstar(i) {
     for (let y = 0; y <= i; y++) {
         stelle[y].style.color = "#00FFFF";
@@ -52,9 +57,11 @@ function deselect() {
     })
 
 }
-
+// Event listener per il taso enter nella textarea
 text.addEventListener("keydown", function (event) {
+    //se il tasto enter viene premuti
     if (event.key === "Enter") {
+        //mostra un messaggio di conferma e resetta il valore della textarea
         alert("Abbiamo ricevuto il tuo feedback!");
         text.value = "";
     }

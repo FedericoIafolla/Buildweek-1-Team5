@@ -20,6 +20,7 @@ let timeLeft = TIME_LIMIT;
 let timerInterval = null;
 let remainingPathColor = COLOR_CODES.info.color;
 
+//Array di domande e risposte 
 const questions = [
     {
         question: "What does CPU stand for?",
@@ -86,7 +87,7 @@ let correctAnswers = 0;
 let wrongAnswers = 0;
 let currentQuestion = 1;
 let selectedAnswer = null;
-
+// Questa funzione prende l'array e ne rimescola casualmente gli elementi.
 function shuffle(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -125,7 +126,8 @@ function startQuiz() {
     
     setNextQuestion();
 }
-
+// Questa funzione mostra la prossima domanda del quiz, resettando lo stato
+//del quiz e avviando il timer
 function setNextQuestion() {
     resetState();
     showQuestion(questions[currentQuestionIndex]);
@@ -184,7 +186,8 @@ function onTimesUp() {
         showResults();
     }
 }
-
+// Questa funzione avvia il timer per una domanda, aggiornando il tempo rimanente
+// e il cerchio di progressione del timer
 function startTimer() {
     timerInterval = setInterval(() => {
         timePassed = timePassed += 1;
@@ -242,7 +245,8 @@ function setCircleDasharray() {
         .getElementById("base-timer-path-remaining")
         .setAttribute("stroke-dasharray", circleDasharray);
 }
-
+// Abbiamo utilizzato questa funzione per salvare i riusltati del quiz nel localStorage
+// e reindirizza l'utente alla pagina dei risultati
 function showResults() {
     localStorage.setItem('quizResults', JSON.stringify({ correct: correctAnswers, wrong: wrongAnswers, total: questionLength }));
     window.location.href = 'results.html';

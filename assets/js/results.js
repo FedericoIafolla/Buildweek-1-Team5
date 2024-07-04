@@ -25,6 +25,11 @@ const doughnutLabel = {
     const boldFont = `${fontSize * 1.6}px sans-serif`;
     const regularFont = `${fontSize * 1}px sans-serif`;
 
+    ctx.shadowColor = pluginOptions.shadow;
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 2;
+    ctx.shadowOffsetY = 2;
+
     ctx.textAlign = "center";
 
     lines.forEach((line, index) => {
@@ -47,6 +52,16 @@ const doughnutLabel = {
   },
 };
 
+const ShadowPlugin = {
+  id: 'shadowPlugin',
+  beforeDraw: (chart, args, options) => {
+    const { ctx } = chart;
+    ctx.shadowColor = "rgba(0, 0, 0, 0.5)";
+    ctx.shadowBlur = 10;
+    ctx.shadowOffsetX = 5;
+    ctx.shadowOffsetY = 5;
+  },
+};
 
 document.addEventListener("DOMContentLoaded", function () {
   const quizResults = JSON.parse(localStorage.getItem("quizResults"));
@@ -111,6 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
             display: false,
           },
           doughnutLabel: {
+            fontFamily: "Outfit, sans-serif",
             fontSize: 13,
             lineHeight: 1.5,
             color: "white",
@@ -119,8 +135,9 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         },
       },
-      plugins: [doughnutLabel],
+      plugins: [doughnutLabel, ShadowPlugin],      
     });
   }
   localStorage.removeItem("quizResults");
 });
+
