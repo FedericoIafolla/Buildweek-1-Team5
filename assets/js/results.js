@@ -297,18 +297,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const correctAnswersPercentage = document.getElementById("correct-answers-percentage");
     const wrongAnswersPercentage = document.getElementById("wrong-answers-percentage");
 
+    // Parte sotto al valore percentuale
     correctAnswers.innerHTML = `${quizResults.correct} / ${quizResults.total} questions`;
     wrongAnswers.innerHTML = `${quizResults.wrong} / ${quizResults.total} questions`;
-
+    // Imposta il valore in percentuale
     const correctAnswersPercentageNumber = (quizResults.correct / parseInt(quizResults.total)) * 100;
     const wrongAnswersPercentageNumber = (quizResults.wrong / parseInt(quizResults.total)) * 100;
-
+    // Imposta il valore in percentuale in numeri interi
     correctAnswersPercentage.innerHTML = `${correctAnswersPercentageNumber}%`;
     wrongAnswersPercentage.innerHTML = `${wrongAnswersPercentageNumber}%`;
 
     const ctx = document.getElementById("myChart").getContext("2d");
 
     let text, colorSecondLine;
+
+    // Condizione per scrivere una delle due frasi all'interno del grafico
     if (correctAnswersPercentageNumber >= 60) {
       text =
         "Congratulations!\nYou passed the exam.\n\nWe'll send you the certificate \nin few minutes. \nCheck your email \n(including promotions/spam folder)";
@@ -316,12 +319,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Avvia l'effetto dei confetti
       poof();
+
     } else {
       text =
         "We are sorry\nYou failed the exam\n\nYou will be contacted by \nyour teacher in the next few days";
       colorSecondLine = "#C2128D";
     }
 
+    // Imposta le proprietà del grafico
     new Chart(ctx, {
       type: "doughnut",
       data: {
