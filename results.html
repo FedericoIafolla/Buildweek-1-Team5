@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risultati del Quiz</title>
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <link rel="icon" href="assets/media/favicon.png">
+</head>
+
+<body>
+    <div id="container">
+        <header id="header3">
+            <img id="logo" src="./assets/media/epicode_logo.png" alt="logo epicode">
+        </header>
+        <main>
+            <div id="quiz-container3">
+                <div id="title3">
+                    <h1>Results</h1>
+                    <h2>The summary of your answers:</h2>
+                </div>
+                <div id="inline">
+        <div id="correct-container" class="results">
+                        <h2>Correct</h2>
+                        <h4 id="correct-answers-percentage">0%</h4>
+                        <p id="correct-answers">0/0 questions</p>
+                    </div>
+                    <div id="grafico">
+                        <canvas id="myChart" style="width: 100%;">
+                        </canvas>
+                    </div>
+                    <div id="wrong-container" class="results">
+                        <h2>Wrong</h2>
+                        <h4 id="wrong-answers-percentage">0%</h4>
+                        <p id="wrong-answers">0/0 questions</p>
+                    </div>
+                </div>
+            </div>
+            <div id="rate-us">
+                <button type="button" id="rate-us-btn">RATE US</button></a>
+            </div>
+        </main>
+    </div>
+        <!-- Tag script necessari all'aggiunta del grafico alla struttura -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-datalabels/dist/chartjs-plugin-datalabels.min.js"></script>
+    <script src="./assets/js/results.js"></script>
+        <!-- Script per aprire la pagina di feedback in un'altra scheda, scelta presa perchè il metodo classico sul bottone non funzionava -->
+    <script>document.getElementById('rate-us-btn').addEventListener('click', function() {
+        window.open('./feedback.html', '_blank');
+    });
+    </script>
+</body>
+
+</html>
