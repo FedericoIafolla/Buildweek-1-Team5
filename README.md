@@ -29,7 +29,7 @@ Per utilizzare l'applicazione del quiz, basta aprire il file **`index.html`** 
 
 - **🙌 Pagina di benvenuto**
     
-    Questo codice gestisce l'interazione dell'utente con una checkbox e un pulsante sulla pagina, e cambia la visualizzazione di alcuni elementi HTML in base alle azioni dell'utente.
+    Questo codice gestisce l'interazione dell'utente con la checkbox e il pulsante proceed, e cambia la visualizzazione di alcuni elementi HTML in base alle azioni dell'utente.
     
     1. **Funzione `init`**: 
         
