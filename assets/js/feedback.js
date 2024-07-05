@@ -52,7 +52,7 @@ function deselect() {
   });
 }
 
-// Event listener per il taso enter nella textarea
+// Event listener per il tasto enter nella textarea
 text.addEventListener("keydown", function (event) {
   //se il tasto enter viene premuto
   if (event.key === "Enter") {

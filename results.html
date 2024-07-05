@@ -4,17 +4,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Risultati del Quiz</title>
+    <title>Results</title>
     <link rel="stylesheet" href="./assets/css/style.css">
     <link rel="icon" href="assets/media/favicon.png">
 </head>
 
 <body>
-    <div id="container">
+   
         <header id="header3">
-            <img id="logo" src="./assets/media/epicode_logo.png" alt="logo epicode">
+            <img id="logo1" src="./assets/media/epicode_logo.png" alt="logo epicode">
         </header>
-        <main>
+    <div id="container">
+        <main id="main3">
             <div id="quiz-container3">
                 <div id="title3">
                     <h1>Results</h1>
@@ -27,7 +28,7 @@
                         <p id="correct-answers">0/0 questions</p>
                     </div>
                     <div id="grafico">
-                        <canvas id="myChart" style="width: 100%;">
+                        <canvas id="myChart" style="width: 80%; margin: 0 auto;">
                         </canvas>
                     </div>
                     <div id="wrong-container" class="results">
@@ -37,10 +38,11 @@
                     </div>
                 </div>
             </div>
-            <div id="rate-us">
-                <button type="button" id="rate-us-btn">RATE US</button></a>
-            </div>
+          
         </main>
+        <div id="rate-us">
+            <button type="button" id="rate-us-btn">RATE US</button></a>
+        </div>
     </div>
         <!-- Tag script necessari all'aggiunta del grafico alla struttura -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
