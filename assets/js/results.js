@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           doughnutLabel: {
             fontFamily: "Outfit, sans-serif",
-            fontSize: 15,
+            fontSize: 13,
             lineHeight: 1.5,
             color: "white",
             colorSecondLine: colorSecondLine,
