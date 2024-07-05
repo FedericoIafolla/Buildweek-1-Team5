@@ -62,7 +62,7 @@ text.addEventListener("keydown", function (event) {
     //se il tasto enter viene premuti
     if (event.key === "Enter") {
         //mostra un messaggio di conferma e resetta il valore della textarea
-        alert("Abbiamo ricevuto il tuo feedback!");
+        alert("We have received your feedback!");
         text.value = "";
     }
 })
