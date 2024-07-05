@@ -1,5 +1,3 @@
-# README new
-
 # **Benchmark Platform EPICODE**
 
 Benvenuti alla Benchmark Platform EPICODE! Si tratta di una web che permette agli utenti di svolgere un quiz con domande a risposta multipla. Le domande sono presentate una alla volta e gli utenti devono selezionare la risposta corretta. Alla fine del quiz, gli utenti possono visualizzare il punteggio ottenuto.
