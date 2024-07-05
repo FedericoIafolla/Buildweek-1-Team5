@@ -240,7 +240,7 @@ const doughnutLabel = {
     const { ctx, data } = chart;
     ctx.save();
     const centerX = chart.width / 2;
-    const centerY = chart.height / 2 - 65;
+    const centerY = chart.height / 2 - 75;
 
     const lines = pluginOptions.text.split("\n");
     const fontSize = pluginOptions.fontSize || 12;
@@ -314,7 +314,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Condizione per scrivere una delle due frasi all'interno del grafico
     if (correctAnswersPercentageNumber >= 60) {
       text =
-        "Congratulations!\nYou passed the exam.\n\nWe'll send you the certificate \nin few minutes. \nCheck your email \n(including promotions/spam folder)";
+        "Congratulations!\nYou passed the exam.\n\nWe'll send you the certificate \nin few minutes. \nCheck your email \n(including promotions/spam folder)"
       colorSecondLine = "#01FBFC";
 
       // Avvia l'effetto dei confetti
@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
           doughnutLabel: {
             fontFamily: "Outfit, sans-serif",
-            fontSize: 15,
+            fontSize: 14,
             lineHeight: 1.5,
             color: "white",
             colorSecondLine: colorSecondLine,
